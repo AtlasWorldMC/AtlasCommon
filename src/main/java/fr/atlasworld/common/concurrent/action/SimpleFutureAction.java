@@ -75,6 +75,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
      * Complete the future action.
      * @param value to complete the future.
      */
+    @CanIgnoreReturnValue
     public SimpleFutureAction<V> complete(V value) {
         if (this.isDone())
             throw new IllegalStateException("Action already completed!");
@@ -100,6 +101,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
      * Marks the future action as failed.
      * @param cause cause of the failure.
      */
+    @CanIgnoreReturnValue
     public SimpleFutureAction<V> fail(Throwable cause) {
         if (this.isDone())
             throw new IllegalStateException("Action already completed!");

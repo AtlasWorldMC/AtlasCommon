@@ -96,6 +96,7 @@ public interface FutureAction<V> extends Future<V> {
      * @return null on failure.
      * @throws com.google.common.util.concurrent.UncheckedExecutionException when interrupted
      */
+    @CanIgnoreReturnValue
     V syncUninterruptibly();
 
     /**
