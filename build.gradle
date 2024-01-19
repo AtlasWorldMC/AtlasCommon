@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'eclipse'
+}
+
+eclipse {
+    classpath {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+group = 'fr.atlasworld.common'
+version = "${project_version}"
+
+repositories {
+    maven {
+        url "https://repository.atlasworld.fr/repository/maven-public/"
+    }
+}
+
+dependencies {
+    api "org.slf4j:slf4j-api:${slf4j_version}"
+    api "org.jetbrains:annotations:${annotation_version}"
+    api "com.google.code.gson:gson:${gson_version}"
+    api "com.google.guava:guava:${guava_version}"
+}
