@@ -60,8 +60,10 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
 
         this.cancelled = this.onCancellation.apply(mayInterruptIfRunning);
 
-        if (this.cancelled)
+        if (this.cancelled) {
             this.timing.stop();
+            this.latch.countDown();
+        }
 
         return this.cancelled;
     }
@@ -84,7 +86,6 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         this.value = value;
         this.done = true;
         this.success = true;
-        this.latch.countDown();
 
         for (Consumer<V> listener : this.onSuccess) {
             listener.accept(this.value);
@@ -93,6 +94,8 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         for (BiConsumer<V, Throwable> listener : this.whenDone) {
             listener.accept(this.value, this.cause);
         }
+
+        this.latch.countDown();
 
         return this;
     }
@@ -109,7 +112,6 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         this.timing.stop();
         this.cause = cause;
         this.done = true;
-        this.latch.countDown();
 
         for (Consumer<Throwable> listener : this.onFailure) {
             listener.accept(this.cause);
@@ -118,6 +120,8 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         for (BiConsumer<V, Throwable> listener : this.whenDone) {
             listener.accept(this.value, this.cause);
         }
+
+        this.latch.countDown();
 
         return this;
     }
