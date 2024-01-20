@@ -1,7 +1,3 @@
-plugins {
-    id 'java-library'
-}
-
 group = "${project_group}"
 version = "${project_version}"
 

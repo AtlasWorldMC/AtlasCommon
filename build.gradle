@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'org.ajoberstar.grgit' version '5.2.1'
+    id 'signing'
 }
 
 group = "${project_group}"
@@ -27,5 +29,51 @@ allprojects {
         maven {
             url "https://repository.atlasworld.fr/repository/maven-public/"
         }
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+
+    publishing {
+        repositories {
+            maven {
+                name 'AtlasWorld-Snapshots'
+
+                def release = "https://repository.atlasworld.fr/repository/maven-release/"
+                def snapshot = "https://repository.atlasworld.fr/repository/maven-snapshot/"
+
+                url = System.getenv("SNAPSHOT") ? snapshot : release
+                credentials {
+                    username = System.getenv("MAVEN_USERNAME")
+                    password = System.getenv("MAVEN_PASSWORD")
+                }
+            }
+        }
+        publications {
+            jar(MavenPublication) {
+                from components.java
+
+                version = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
+
+                pom {
+                    name = 'AtlasCommon'
+                    description = 'Common Code Utilities for AtlasWorld.'
+                    licenses {
+                        license {
+                            name = 'GNU-GPL-v2.0'
+
+                            url = 'https://github.com/AtlasWorldMC/AtlasCommon/blob/master/LICENSE'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
     }
 }

@@ -1,0 +1,30 @@
+name: Publish
+on: [push]
+jobs:
+  publish:
+    strategy:
+      matrix:
+        java: [17]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Setup JDK ${{ matrix.java }}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: 'temurin'
+      - name: Make Gradle Executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+      - name: Publish package
+        uses: gradle/gradle-build-action@749f47bda3e44aa060e82d7b3ef7e40d953bd629
+        with:
+          arguments: publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.REPOSITORY_USER }}
+          MAVEN_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
+          SNAPSHOT : true
