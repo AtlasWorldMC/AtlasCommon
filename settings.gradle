@@ -1,2 +1,6 @@
 rootProject.name = 'AtlasCommons'
+include 'common'
+include 'security'
+include 'networking'
+include 'concurrent'
 

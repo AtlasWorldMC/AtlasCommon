@@ -1,46 +1,31 @@
 plugins {
-    id 'java-library'
-    id 'idea'
-    id 'eclipse'
+    id 'java'
 }
 
-eclipse {
-    classpath {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
-group = 'fr.atlasworld.common'
+group = "${project_group}"
 version = "${project_version}"
 
-repositories {
-    maven {
-        url "https://repository.atlasworld.fr/repository/maven-public/"
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+
+    eclipse {
+        classpath {
+            downloadJavadoc = true
+            downloadSources = true
+        }
     }
-}
 
-dependencies {
-    api "org.slf4j:slf4j-api:${slf4j_version}"
-    api "org.jetbrains:annotations:${annotation_version}"
-    api "com.google.code.gson:gson:${gson_version}"
-    api "com.google.guava:guava:${guava_version}"
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
 
-    testImplementation(platform('org.junit:junit-bom:5.10.1'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
-    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
-}
-
-test {
-    useJUnitPlatform()
-    testLogging {
-        events "passed", "skipped", "failed"
+    repositories {
+        maven {
+            url "https://repository.atlasworld.fr/repository/maven-public/"
+        }
     }
 }
