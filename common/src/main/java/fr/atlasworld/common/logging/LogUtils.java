@@ -42,6 +42,11 @@ public final class LogUtils {
         else
             LOGGER.trace("Could not find LOG4J core, skipping binding..");
 
+        if (ReflectionFactory.classExists("ch.qos.logback.classic.Logger"))
+            setLogBackLevel(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME, level.convertToLogBack());
+        else
+            LOGGER.trace("Could not find LOGBACK classic, skipping binding..");
+
         LOGGER.debug("Changed global logging level to {}", level);
     }
 
@@ -57,6 +62,12 @@ public final class LogUtils {
         else
             LOGGER.trace("Could not find LOG4J core, skipping binding..");
 
+        if (ReflectionFactory.classExists("ch.qos.logback.classic.Logger"))
+            setLogBackLevel(logger, level.convertToLogBack());
+        else
+            LOGGER.trace("Could not find LOGBACK classic, skipping binding..");
+
+
         LOGGER.debug("Changed '{}' logging level to {}", logger, level);
     }
 
@@ -66,5 +77,10 @@ public final class LogUtils {
 
     private static void setLog4JLevel(String logger, org.apache.logging.log4j.Level level) {
         org.apache.logging.log4j.core.config.Configurator.setAllLevels(logger, level);
+    }
+
+    private static void setLogBackLevel(String logger, ch.qos.logback.classic.Level level) {
+        ch.qos.logback.classic.Logger logbackLogger = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(logger);
+        logbackLogger.setLevel(level);
     }
 }

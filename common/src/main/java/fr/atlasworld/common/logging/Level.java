@@ -84,7 +84,22 @@ public enum Level {
     }
 
     /**
-     * Converts a {@code SLF4J} into a AtlasCommon level format.
+     * Converts this level to a {@code LogBack} level format.
+     * @return this level into a {@code LogBack} level format.
+     */
+    public ch.qos.logback.classic.Level convertToLogBack() {
+        return switch (this) {
+            case OFF -> ch.qos.logback.classic.Level.OFF;
+            case TRACE -> ch.qos.logback.classic.Level.TRACE;
+            case DEBUG -> ch.qos.logback.classic.Level.DEBUG;
+            case INFO -> ch.qos.logback.classic.Level.INFO;
+            case WARNING -> ch.qos.logback.classic.Level.WARN;
+            case ERROR -> ch.qos.logback.classic.Level.ERROR;
+        };
+    }
+
+    /**
+     * Converts a {@code SLF4J} level into a AtlasCommon level format.
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -100,6 +115,11 @@ public enum Level {
         };
     }
 
+    /**
+     * Converts a {@link java.util.logging.Level} level into a AtlasCommon level format.
+     * @param level level to convert
+     * @return provided level into a AtlasCommon level format.
+     */
     public static Level convert(@NotNull java.util.logging.Level level) {
         Preconditions.checkNotNull(level);
 
@@ -126,7 +146,7 @@ public enum Level {
     }
 
     /**
-     * Converts a {@code LOG4J} into a AtlasCommon level format.
+     * Converts a {@code LOG4J} level into a AtlasCommon level format.
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -149,6 +169,36 @@ public enum Level {
             return WARNING;
 
         if (level == org.apache.logging.log4j.Level.ERROR || level == org.apache.logging.log4j.Level.FATAL)
+            return ERROR;
+
+        throw new IllegalArgumentException("If you're seeing this message, " +
+                "or this library is not up-to-date or there is something wrong with this classpath! Did you provide a custom level?");
+    }
+
+    /**
+     * Converts a {@code LogBack} level into a AtlasCommon level format.
+     * @param level level to convert
+     * @return provided level into a AtlasCommon level format.
+     */
+    public static Level convert(@NotNull ch.qos.logback.classic.Level level) {
+        Preconditions.checkNotNull(level);
+
+        if (level == ch.qos.logback.classic.Level.OFF)
+            return OFF;
+
+        if (level == ch.qos.logback.classic.Level.ALL || level == ch.qos.logback.classic.Level.TRACE)
+            return TRACE;
+
+        if (level == ch.qos.logback.classic.Level.DEBUG)
+            return DEBUG;
+
+        if (level == ch.qos.logback.classic.Level.INFO)
+            return INFO;
+
+        if (level == ch.qos.logback.classic.Level.WARN)
+            return WARNING;
+
+        if (level == ch.qos.logback.classic.Level.ERROR)
             return ERROR;
 
         throw new IllegalArgumentException("If you're seeing this message, " +

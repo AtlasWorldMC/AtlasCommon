@@ -128,7 +128,7 @@ public class LoggingOutputStream extends OutputStream {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         this.flush();
         this.closed = true;
     }
