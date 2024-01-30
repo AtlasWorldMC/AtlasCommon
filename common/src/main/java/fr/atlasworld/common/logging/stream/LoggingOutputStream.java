@@ -59,8 +59,7 @@ public class LoggingOutputStream extends OutputStream {
      * argument <code>b</code>. The 24 high-order bits of <code>b</code> are
      * ignored.
      *
-     * @param b
-     *            the <code>byte</code> to write
+     * @param b the <code>byte</code> to write
      */
     @Override
     public void write(int b) throws IOException {
