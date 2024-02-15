@@ -17,7 +17,7 @@ public class ConcurrentTests {
     static ExecutorService executor;
 
     @BeforeAll
-    static void setup(){
+    static void setup() {
         executor = Executors.newFixedThreadPool(10);
     }
 
@@ -43,7 +43,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(10);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(expectedResult);
                 });
@@ -62,7 +63,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(10);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(null);
                 });
@@ -84,7 +86,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(30);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(null);
                 });
@@ -109,7 +112,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(10);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.fail(expectedCause);
                 });
@@ -131,7 +135,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(30);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.fail(new Throwable());
                 });
@@ -155,7 +160,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(30);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(null);
                 });
@@ -181,7 +187,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(30);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(null);
                 });
@@ -203,7 +210,8 @@ public class ConcurrentTests {
                 executor.submit(() -> {
                     try {
                         Thread.sleep(30);
-                    } catch (InterruptedException ignored) {}
+                    } catch (InterruptedException ignored) {
+                    }
 
                     future.complete(null);
                 });

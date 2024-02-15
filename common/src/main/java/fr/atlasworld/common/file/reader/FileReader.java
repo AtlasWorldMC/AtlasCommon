@@ -14,6 +14,7 @@ import java.nio.file.FileAlreadyExistsException;
 
 /**
  * File Reader, allows the reading/writing and even checking of file integrity.
+ *
  * @param <V> type of data expected to be loaded.
  */
 public abstract class FileReader<V> {
@@ -23,7 +24,7 @@ public abstract class FileReader<V> {
     protected final File file;
 
     protected FileReader(@NotNull File file) {
-        Preconditions.checkArgument(file != null, "File may not be null!");
+        Preconditions.checkNotNull(file);
         this.file = file;
     }
 
@@ -90,6 +91,7 @@ public abstract class FileReader<V> {
     /**
      * Calculate the checksum of the file.
      * This will use {@code SHA-1} algorithm to calculate the checksum.
+     *
      * @return the calculated checksum of the file.
      * @throws IOException if the file could not be read.
      */

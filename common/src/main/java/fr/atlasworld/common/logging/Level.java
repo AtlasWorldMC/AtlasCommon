@@ -39,67 +39,8 @@ public enum Level {
     ERROR;
 
     /**
-     * Converts this level to a {@code SLF4J} level format.
-     * @return null if the level is {@code OFF}.
-     */
-    public org.slf4j.event.Level convertToSlf4J() {
-        return switch (this) {
-            case OFF -> null;
-            case TRACE -> org.slf4j.event.Level.TRACE;
-            case DEBUG -> org.slf4j.event.Level.DEBUG;
-            case INFO -> org.slf4j.event.Level.INFO;
-            case WARNING -> org.slf4j.event.Level.WARN;
-            case ERROR -> org.slf4j.event.Level.ERROR;
-        };
-    }
-
-    /**
-     * Converts this level to a {@link java.util.logging.Level} level format.
-     * @return this level into a{@link java.util.logging.Level} level format.
-     */
-    public java.util.logging.Level convertToVanilla() {
-        return switch (this) {
-            case OFF -> java.util.logging.Level.OFF;
-            case TRACE -> java.util.logging.Level.FINER;
-            case DEBUG -> java.util.logging.Level.FINE;
-            case INFO -> java.util.logging.Level.INFO;
-            case WARNING -> java.util.logging.Level.WARNING;
-            case ERROR -> java.util.logging.Level.SEVERE;
-        };
-    }
-
-    /**
-     * Converts this level to a {@code LOG4J} level format.
-     * @return this level into a {@code LOG4J} level format.
-     */
-    public org.apache.logging.log4j.Level convertToLog4J() {
-        return switch (this) {
-            case OFF -> org.apache.logging.log4j.Level.OFF;
-            case TRACE -> org.apache.logging.log4j.Level.TRACE;
-            case DEBUG -> org.apache.logging.log4j.Level.DEBUG;
-            case INFO -> org.apache.logging.log4j.Level.INFO;
-            case WARNING -> org.apache.logging.log4j.Level.WARN;
-            case ERROR -> org.apache.logging.log4j.Level.ERROR;
-        };
-    }
-
-    /**
-     * Converts this level to a {@code LogBack} level format.
-     * @return this level into a {@code LogBack} level format.
-     */
-    public ch.qos.logback.classic.Level convertToLogBack() {
-        return switch (this) {
-            case OFF -> ch.qos.logback.classic.Level.OFF;
-            case TRACE -> ch.qos.logback.classic.Level.TRACE;
-            case DEBUG -> ch.qos.logback.classic.Level.DEBUG;
-            case INFO -> ch.qos.logback.classic.Level.INFO;
-            case WARNING -> ch.qos.logback.classic.Level.WARN;
-            case ERROR -> ch.qos.logback.classic.Level.ERROR;
-        };
-    }
-
-    /**
      * Converts a {@code SLF4J} level into a AtlasCommon level format.
+     *
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -117,6 +58,7 @@ public enum Level {
 
     /**
      * Converts a {@link java.util.logging.Level} level into a AtlasCommon level format.
+     *
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -147,6 +89,7 @@ public enum Level {
 
     /**
      * Converts a {@code LOG4J} level into a AtlasCommon level format.
+     *
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -177,6 +120,7 @@ public enum Level {
 
     /**
      * Converts a {@code LogBack} level into a AtlasCommon level format.
+     *
      * @param level level to convert
      * @return provided level into a AtlasCommon level format.
      */
@@ -203,5 +147,69 @@ public enum Level {
 
         throw new IllegalArgumentException("If you're seeing this message, " +
                 "or this library is not up-to-date or there is something wrong with this classpath! Did you provide a custom level?");
+    }
+
+    /**
+     * Converts this level to a {@code SLF4J} level format.
+     *
+     * @return null if the level is {@code OFF}.
+     */
+    public org.slf4j.event.Level convertToSlf4J() {
+        return switch (this) {
+            case OFF -> null;
+            case TRACE -> org.slf4j.event.Level.TRACE;
+            case DEBUG -> org.slf4j.event.Level.DEBUG;
+            case INFO -> org.slf4j.event.Level.INFO;
+            case WARNING -> org.slf4j.event.Level.WARN;
+            case ERROR -> org.slf4j.event.Level.ERROR;
+        };
+    }
+
+    /**
+     * Converts this level to a {@link java.util.logging.Level} level format.
+     *
+     * @return this level into a{@link java.util.logging.Level} level format.
+     */
+    public java.util.logging.Level convertToVanilla() {
+        return switch (this) {
+            case OFF -> java.util.logging.Level.OFF;
+            case TRACE -> java.util.logging.Level.FINER;
+            case DEBUG -> java.util.logging.Level.FINE;
+            case INFO -> java.util.logging.Level.INFO;
+            case WARNING -> java.util.logging.Level.WARNING;
+            case ERROR -> java.util.logging.Level.SEVERE;
+        };
+    }
+
+    /**
+     * Converts this level to a {@code LOG4J} level format.
+     *
+     * @return this level into a {@code LOG4J} level format.
+     */
+    public org.apache.logging.log4j.Level convertToLog4J() {
+        return switch (this) {
+            case OFF -> org.apache.logging.log4j.Level.OFF;
+            case TRACE -> org.apache.logging.log4j.Level.TRACE;
+            case DEBUG -> org.apache.logging.log4j.Level.DEBUG;
+            case INFO -> org.apache.logging.log4j.Level.INFO;
+            case WARNING -> org.apache.logging.log4j.Level.WARN;
+            case ERROR -> org.apache.logging.log4j.Level.ERROR;
+        };
+    }
+
+    /**
+     * Converts this level to a {@code LogBack} level format.
+     *
+     * @return this level into a {@code LogBack} level format.
+     */
+    public ch.qos.logback.classic.Level convertToLogBack() {
+        return switch (this) {
+            case OFF -> ch.qos.logback.classic.Level.OFF;
+            case TRACE -> ch.qos.logback.classic.Level.TRACE;
+            case DEBUG -> ch.qos.logback.classic.Level.DEBUG;
+            case INFO -> ch.qos.logback.classic.Level.INFO;
+            case WARNING -> ch.qos.logback.classic.Level.WARN;
+            case ERROR -> ch.qos.logback.classic.Level.ERROR;
+        };
     }
 }

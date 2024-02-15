@@ -10,6 +10,7 @@ import java.io.OutputStream;
 
 /**
  * Redirects an {@link OutputStream} info {@code SLF4J} logging messages.
+ *
  * @author itshorty
  * (<a href="https://stackoverflow.com/questions/11187461/redirect-system-out-and-system-err-to-slf4j">Original Post</a>)
  */
@@ -26,12 +27,6 @@ public class LoggingOutputStream extends OutputStream {
      * The internal buffer where data is stored.
      */
     protected byte[] buf;
-
-    /**
-     * Remembers the size of the buffer for speed.
-     */
-    private int bufLength;
-
     /**
      * The number of valid bytes in the buffer. This value is always in the
      * range <code>0</code> through <code>buf.length</code>; elements
@@ -39,6 +34,10 @@ public class LoggingOutputStream extends OutputStream {
      * data.
      */
     protected int count;
+    /**
+     * Remembers the size of the buffer for speed.
+     */
+    private int bufLength;
 
     public LoggingOutputStream(@NotNull Logger logger, @NotNull Level loggingLevel) {
         Preconditions.checkNotNull(logger);

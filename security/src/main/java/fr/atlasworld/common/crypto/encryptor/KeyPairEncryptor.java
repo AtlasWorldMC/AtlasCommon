@@ -19,7 +19,8 @@ public class KeyPairEncryptor implements Encryptor {
     private final Cipher decryptCipher;
 
     public KeyPairEncryptor(@NotNull PublicKey publicKey, @NotNull PrivateKey privateKey) throws CryptographyException {
-        Preconditions.checkNotNull(publicKey, privateKey);
+        Preconditions.checkNotNull(publicKey);
+        Preconditions.checkNotNull(privateKey);
 
         this.publicKey = publicKey;
         this.privateKey = privateKey;
