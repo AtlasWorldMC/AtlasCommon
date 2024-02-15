@@ -50,6 +50,8 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
                 this.cancel(true);
                 this.fail(e);
             } catch (InterruptedException ignored) {
+            } finally {
+                this.executor.shutdown(); // Free the thread's resources.
             }
         });
 

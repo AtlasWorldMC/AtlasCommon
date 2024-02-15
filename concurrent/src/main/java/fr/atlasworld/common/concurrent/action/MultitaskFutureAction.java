@@ -80,6 +80,8 @@ public class MultitaskFutureAction<V> implements FutureAction<V> {
             } catch (TimeoutException e) {
                 this.failTask(e);
             } catch (InterruptedException ignored) {
+            } finally {
+                this.executor.shutdown(); // Free the thread's resources.
             }
         });
 
