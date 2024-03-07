@@ -10,6 +10,7 @@ import java.util.function.Function;
 /**
  * Quite similar to {@link CompletableFuture} it allows to make a future that will be completed.
  * And allows other threads to block until it fails or succeeds.
+ *
  * @param <V> type of value that the actions is supposed to return.
  */
 public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAction<V>> {
@@ -26,6 +27,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
 
     /**
      * Define the listener when {@link #cancel(boolean)} is called.
+     *
      * @param listener function called when the future is cancelled.
      *                 It provides a {@code BOOLEAN} whether it should be interrupted or not.
      *                 And expects another {@code BOOLEAN} as result on whether the future has been cancelled.
@@ -47,7 +49,10 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
             } catch (TimeoutException e) {
                 this.cancel(true);
                 this.fail(e);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            } finally {
+                this.executor.shutdown(); // Free the thread's resources.
+            }
         });
 
         return this;
@@ -75,6 +80,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
 
     /**
      * Complete the future action.
+     *
      * @param value to complete the future.
      */
     @CanIgnoreReturnValue
@@ -102,6 +108,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
 
     /**
      * Marks the future action as failed.
+     *
      * @param cause cause of the failure.
      */
     @CanIgnoreReturnValue

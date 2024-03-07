@@ -79,7 +79,10 @@ public class MultitaskFutureAction<V> implements FutureAction<V> {
                 this.sync(time, unit);
             } catch (TimeoutException e) {
                 this.failTask(e);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            } finally {
+                this.executor.shutdown(); // Free the thread's resources.
+            }
         });
 
         return this;
@@ -108,6 +111,7 @@ public class MultitaskFutureAction<V> implements FutureAction<V> {
 
     /**
      * Retrieve all results.
+     *
      * @return all results.
      */
     public @Nullable List<V> results() {

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 
 public class Main {
     private static final Logger LOGGER = LogUtils.getLogger();
+
     public static void main(String[] args) {
         LogUtils.setGlobalLevel(Level.TRACE);
 

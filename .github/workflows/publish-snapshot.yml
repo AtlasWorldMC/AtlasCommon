@@ -1,11 +1,11 @@
 name: Publish - Snapshot
-on: [push]
+on: [ push ]
 jobs:
   publish:
     strategy:
       matrix:
-        java: [17]
-        os: [ubuntu-latest]
+        java: [ 17 ]
+        os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout Repository
@@ -27,4 +27,4 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.REPOSITORY_USER }}
           MAVEN_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
-          SNAPSHOT : true
+          SNAPSHOT: true

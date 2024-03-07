@@ -64,6 +64,7 @@ public interface FutureAction<V> extends Future<V> {
 
     /**
      * Get the result of the future action.
+     *
      * @return null if the action is not yet finished or wasn't successful.
      */
     @Nullable V result();
