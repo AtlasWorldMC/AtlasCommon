@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.io.PrintStream;
 
 public final class LogUtils {
-    private static final Logger LOGGER = getLogger();
+    private static final Logger LOGGER = getLoggerFullName();
 
     private static final Logger SYS_ERR_LOGGER = LoggerFactory.getLogger("SYSERR");
     private static final Logger SYS_OUT_LOGGER = LoggerFactory.getLogger("SYSOUT");
