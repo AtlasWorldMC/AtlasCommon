@@ -12,24 +12,22 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 public class KeyPairEncryptor implements Encryptor {
-    private final PublicKey publicKey;
-    private final PrivateKey privateKey;
+    private Cipher encryptCipher;
+    private Cipher decryptCipher;
 
-    private final Cipher encryptCipher;
-    private final Cipher decryptCipher;
-
-    public KeyPairEncryptor(@NotNull PublicKey publicKey, @NotNull PrivateKey privateKey) throws CryptographyException {
-        Preconditions.checkNotNull(publicKey, privateKey);
-
-        this.publicKey = publicKey;
-        this.privateKey = privateKey;
+    public KeyPairEncryptor(PublicKey publicKey, PrivateKey privateKey) throws CryptographyException {
+        Preconditions.checkArgument(!(publicKey == null && privateKey == null), "At least one key must not be null!");
 
         try {
-            this.encryptCipher = Cipher.getInstance(this.publicKey.getAlgorithm());
-            this.encryptCipher.init(Cipher.ENCRYPT_MODE, this.publicKey);
+            if (publicKey != null) {
+                this.encryptCipher = Cipher.getInstance(publicKey.getAlgorithm());
+                this.encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            }
 
-            this.decryptCipher = Cipher.getInstance(this.privateKey.getAlgorithm());
-            this.decryptCipher.init(Cipher.DECRYPT_MODE, this.privateKey);
+            if (privateKey != null) {
+                this.decryptCipher = Cipher.getInstance(privateKey.getAlgorithm());
+                this.decryptCipher.init(Cipher.DECRYPT_MODE, privateKey);
+            }
         } catch (GeneralSecurityException e) {
             throw new CryptographyException("Could not initialize ciphers.", e);
         }
@@ -41,6 +39,9 @@ public class KeyPairEncryptor implements Encryptor {
 
     @Override
     public byte[] encrypt(byte[] bytes) throws CryptographyException {
+        if (this.encryptCipher == null)
+            throw new IllegalStateException("No Public Key provided!");
+
         try {
             return this.encryptCipher.doFinal(bytes);
         } catch (GeneralSecurityException e) {
@@ -50,6 +51,9 @@ public class KeyPairEncryptor implements Encryptor {
 
     @Override
     public byte[] decrypt(byte[] bytes) throws CryptographyException {
+        if (this.decryptCipher == null)
+            throw new IllegalStateException("No Private Key provided!");
+
         try {
             return this.decryptCipher.doFinal(bytes);
         } catch (GeneralSecurityException e) {
@@ -59,12 +63,12 @@ public class KeyPairEncryptor implements Encryptor {
 
     @Override
     public boolean isPublic() {
-        return true;
+        return this.encryptCipher != null;
     }
 
     @Override
     public boolean isPrivate() {
-        return true;
+        return this.decryptCipher != null;
     }
 
     @Override
