@@ -13,11 +13,6 @@ public final class LogUtils {
     private static final Logger SYS_ERR_LOGGER = LoggerFactory.getLogger("SYSERR");
     private static final Logger SYS_OUT_LOGGER = LoggerFactory.getLogger("SYSOUT");
 
-    static {
-        System.setOut(new PrintStream(new LoggingOutputStream(SYS_OUT_LOGGER, Level.INFO), true));
-        System.setErr(new PrintStream(new LoggingOutputStream(SYS_ERR_LOGGER, Level.ERROR), true));
-    }
-
     public static Logger getLogger() {
         return LoggerFactory.getLogger(ReflectionFactory.STACK_WALKER.getCallerClass().getSimpleName());
     }
@@ -69,6 +64,11 @@ public final class LogUtils {
 
 
         LOGGER.debug("Changed '{}' logging level to {}", logger, level);
+    }
+
+    private static void updateOutStreams() {
+        System.setOut(new PrintStream(new LoggingOutputStream(SYS_OUT_LOGGER, Level.INFO), true));
+        System.setErr(new PrintStream(new LoggingOutputStream(SYS_ERR_LOGGER, Level.ERROR), true));
     }
 
     private static void setVanillaLoggingLevel(String logger, java.util.logging.Level level) {
