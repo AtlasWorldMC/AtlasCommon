@@ -66,7 +66,7 @@ public final class LogUtils {
         LOGGER.debug("Changed '{}' logging level to {}", logger, level);
     }
 
-    private static void updateOutStreams() {
+    public static void updateOutStreams() {
         System.setOut(new PrintStream(new LoggingOutputStream(SYS_OUT_LOGGER, Level.INFO), true));
         System.setErr(new PrintStream(new LoggingOutputStream(SYS_ERR_LOGGER, Level.ERROR), true));
     }
