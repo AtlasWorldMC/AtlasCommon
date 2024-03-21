@@ -19,15 +19,16 @@ Code Utilities for, Configuration Parsing ️⚙️, Logging 📝, Cryptography 
 ````groovy
 repositories {
     maven {
-        url "https://repository.atlasworld.fr/repository/maven-private/"
-        credentials {
-            username "$maven_user" // Replace this or define it in your gradle.properties file.
-            password "$maven_password" // Same thing
-        }
+        url "https://repository.atlasworld.fr/repository/maven-public/"
     }
 }
 
 dependencies {
-    compileOnly "fr.atlasworld:common:${module_api_version}"
+    compileOnly "fr.atlasworld.common:<module>:${version}"
 }
 ````
+
+### Available Modules : 
+- **Common:** Included into all other modules it contains the basic components like de file API and the logging;
+- **Concurrent:** Contains the FutureActions and some misc utilities for multithreading.
+- **Security:** Contains the Encryptors and misc utilities for encrypting/validating/authenticating data.
