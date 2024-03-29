@@ -22,7 +22,7 @@ import java.util.function.Consumer;
  * @deprecated Use {@link CompositeFutureAction}.
  */
 @Deprecated
-@ApiStatus.ScheduledForRemoval(inVersion = "1.0.0")
+@ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
 public class MultitaskFutureAction<V> implements FutureAction<V> {
     private final CountDownLatch latch;
 

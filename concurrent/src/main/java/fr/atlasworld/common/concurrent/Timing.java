@@ -1,5 +1,7 @@
 package fr.atlasworld.common.concurrent;
 
+import org.jetbrains.annotations.ApiStatus;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -7,6 +9,7 @@ import java.util.concurrent.TimeUnit;
  * @deprecated Use {@link com.google.common.base.Stopwatch} instead.
  */
 @Deprecated
+@ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
 public class Timing {
     private long start;
     private long runningTime;

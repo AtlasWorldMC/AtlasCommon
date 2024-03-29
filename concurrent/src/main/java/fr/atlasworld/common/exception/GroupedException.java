@@ -1,5 +1,7 @@
 package fr.atlasworld.common.exception;
 
+import org.jetbrains.annotations.ApiStatus;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import java.util.List;
  * @deprecated Attached to the {@link fr.atlasworld.common.concurrent.action.MultitaskFutureAction}
  */
 @Deprecated
+@ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
 public class GroupedException extends Exception {
     private final List<Throwable> causes;
 
