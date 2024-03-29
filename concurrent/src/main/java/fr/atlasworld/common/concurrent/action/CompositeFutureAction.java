@@ -62,9 +62,8 @@ public final class CompositeFutureAction implements FutureAction<Void> {
                 future.whenDone((unused, cause) -> {
                     this.futureDoneCount++;
 
-                    if (cause != null) {
+                    if (cause != null)
                         this.cause = new Exception("One or more of the futures failed execution.", cause);
-                    }
 
                     if (this.isDone() && !this.isCancelled()) {
                         if (this.success())
