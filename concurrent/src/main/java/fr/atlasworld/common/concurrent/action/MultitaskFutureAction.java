@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import fr.atlasworld.common.concurrent.Timing;
-import fr.atlasworld.common.exception.GroupedException;
+import fr.atlasworld.common.concurrent.exception.GroupedException;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

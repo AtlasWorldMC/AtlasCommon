@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * The Timings class provides a way to measure the running time of a program or a specific section of code.
+ *
  * @deprecated Use {@link com.google.common.base.Stopwatch} instead.
  */
 @Deprecated

@@ -87,7 +87,7 @@ public final class LogUtils {
     /**
      * Sets the level of a specified logger.
      *
-     * @param level level to set the logger.
+     * @param level  level to set the logger.
      * @param logger logger.
      */
     public static void setLevel(Logger logger, Level level) {
@@ -97,7 +97,7 @@ public final class LogUtils {
     /**
      * Sets the level of a specified logger.
      *
-     * @param level level to set the logger.
+     * @param level  level to set the logger.
      * @param logger name of the logger.
      */
     public static void setLevel(String logger, Level level) {

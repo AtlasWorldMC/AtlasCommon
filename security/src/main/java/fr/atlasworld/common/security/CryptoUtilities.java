@@ -1,4 +1,4 @@
-package fr.atlasworld.common.crypto;
+package fr.atlasworld.common.security;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;

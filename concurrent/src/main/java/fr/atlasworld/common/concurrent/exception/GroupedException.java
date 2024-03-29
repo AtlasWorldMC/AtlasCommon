@@ -1,4 +1,4 @@
-package fr.atlasworld.common.exception;
+package fr.atlasworld.common.concurrent.exception;
 
 import org.jetbrains.annotations.ApiStatus;
 

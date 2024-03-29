@@ -1,6 +1,6 @@
-package fr.atlasworld.common.exception.crypto;
+package fr.atlasworld.common.security.exception;
 
-import fr.atlasworld.common.crypto.Encryptor;
+import fr.atlasworld.common.security.Encryptor;
 import org.jetbrains.annotations.ApiStatus;
 
 import java.security.GeneralSecurityException;

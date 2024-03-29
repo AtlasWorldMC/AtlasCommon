@@ -37,7 +37,7 @@ public class JsonFileReader<T> extends FileReader<T> {
      * Read the file.
      *
      * @return file data.
-     * @throws IOException if the file could not be read.
+     * @throws IOException                        if the file could not be read.
      * @throws com.google.gson.JsonParseException if the file could not get parsed into JSON.
      */
     @Override
@@ -49,7 +49,7 @@ public class JsonFileReader<T> extends FileReader<T> {
      * Read the raw {@link JsonElement} from the file.
      *
      * @return the raw {@link JsonElement} of the file.
-     * @throws IOException if the file could not be written.
+     * @throws IOException                        if the file could not be written.
      * @throws com.google.gson.JsonParseException if the file could not get parsed into JSON.
      */
     public JsonElement readRaw() throws IOException {
@@ -60,7 +60,7 @@ public class JsonFileReader<T> extends FileReader<T> {
      * Write to the file.
      *
      * @param value data to write.
-     * @throws IOException if the data could not be written to the file.
+     * @throws IOException                        if the data could not be written to the file.
      * @throws com.google.gson.JsonParseException if the data could not get parsed into JSON.
      */
     @Override

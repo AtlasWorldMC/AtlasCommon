@@ -11,8 +11,8 @@ public class ReflectionFactory {
 
     /**
      * Checks whether a class exists.
-     * @param name fully qualified name of the class.
      *
+     * @param name fully qualified name of the class.
      * @return true if it exists false otherwise
      */
     public static boolean classExists(String name) {
@@ -28,9 +28,9 @@ public class ReflectionFactory {
      * Load a single service for an interface.
      *
      * @param serviceInterface interface class for which the service must be loaded.
+     * @param <T>              interface generic of the loaded service.
      * @return the loaded service interface instance.
      * @throws IllegalStateException if none or multiple services we're found for this interface.
-     * @param <T> interface generic of the loaded service.
      */
     public static <T> T loadSingleService(Class<T> serviceInterface) {
         Iterator<T> iterator = ServiceLoader.load(serviceInterface).iterator();
