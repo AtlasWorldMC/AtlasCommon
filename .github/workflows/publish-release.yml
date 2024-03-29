@@ -27,6 +27,6 @@ jobs:
         with:
           arguments: publish
         env:
-          MAVEN_USERNAME: ${{ secrets.REPOSITORY_USER }}
-          MAVEN_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
+          AW_REPO_USERNAME: ${{ secrets.REPOSITORY_USER }}
+          AW_REPO_PASSWORD: ${{ secrets.REPOSITORY_PASSWORD }}
           SNAPSHOT: false

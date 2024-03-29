@@ -48,8 +48,8 @@ subprojects {
                 url = isSnapshot ? snapshot : release
 
                 credentials {
-                    username = System.getenv("MAVEN_USERNAME")
-                    password = System.getenv("MAVEN_PASSWORD")
+                    username = System.getenv("AW_REPO_USERNAME")
+                    username = System.getenv("AW_REPO_PASSWORD")
                 }
 
                 metadataSources {
