@@ -19,18 +19,24 @@ public interface FutureAction<V> extends Future<V> {
 
     /**
      * Execute code on success.
+     *
+     * @param listener listener to call when the future is successful.
      */
     @CanIgnoreReturnValue
     FutureAction<V> onSuccess(@NotNull Consumer<V> listener);
 
     /**
      * Execute code on failure.
+     *
+     * @param listener listener to call when the future has failed.
      */
     @CanIgnoreReturnValue
     FutureAction<V> onFailure(@NotNull Consumer<Throwable> listener);
 
     /**
      * Execute code when the action is done, whether is succeeded or failed.
+     *
+     * @param listener listener to call when the future is done.
      */
     @CanIgnoreReturnValue
     FutureAction<V> whenDone(BiConsumer<V, Throwable> listener);

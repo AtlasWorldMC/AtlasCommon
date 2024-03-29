@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
- * Bytes reader, reads bytes from a file.
+ * Byte reader, reads bytes from a file.
  */
 public class BytesFileReader extends FileReader<byte[]> {
 
@@ -17,11 +17,23 @@ public class BytesFileReader extends FileReader<byte[]> {
         super(file);
     }
 
+    /**
+     * Read the file.
+     *
+     * @return file data.
+     * @throws IOException if the file could not be read
+     */
     @Override
     public byte[] read() throws IOException {
         return Files.readAllBytes(this.file.toPath());
     }
 
+    /**
+     * Write to the file.
+     *
+     * @param value data to write.
+     * @throws IOException if the data could not be written to the file.
+     */
     @Override
     public void write(byte[] value) throws IOException {
         Files.write(this.file.toPath(), value);

@@ -10,11 +10,33 @@ import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Secret-Key encryptor, Encryptor for handling symmetric key for encryption/decryption.
+ */
 public class SecretKeyEncryptor implements Encryptor {
 
     private final Cipher encryptCipher;
     private final Cipher decryptCipher;
 
+    /**
+     * Create a new KeyPair encryptor
+     *
+     * @param secretKey key for encryption.
+     *
+     * @throws IllegalArgumentException if the both keys are null.
+     * @throws NoSuchAlgorithmException if {@code transformation}
+     *         is {@code null}, empty, in an invalid format,
+     *         or if no {@code Provider} supports a {@code CipherSpi}
+     *         implementation for the specified algorithm.
+     * @throws NoSuchPaddingException if {@code transformation}
+     *         contains a padding scheme that is not available.
+     * @exception InvalidKeyException if the given key is inappropriate for
+     *         initializing this cipher, or requires
+     *         algorithm parameters that cannot be
+     *         determined from the given key, or if the given key has a keysize that
+     *         exceeds the maximum allowable keysize (as determined from the
+     *         configured jurisdiction policy files).
+     */
     public SecretKeyEncryptor(@NotNull SecretKey secretKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         Preconditions.checkNotNull(secretKey);
 

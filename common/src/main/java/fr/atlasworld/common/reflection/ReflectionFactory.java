@@ -3,7 +3,10 @@ package fr.atlasworld.common.reflection;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
-public class ReflectionFactory<C> {
+/**
+ * Reflection Factory, Utility class for common reflection method.
+ */
+public class ReflectionFactory {
     public static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     /**
@@ -27,6 +30,7 @@ public class ReflectionFactory<C> {
      * @param serviceInterface interface class for which the service must be loaded.
      * @return the loaded service interface instance.
      * @throws IllegalStateException if none or multiple services we're found for this interface.
+     * @param <T> interface generic of the loaded service.
      */
     public static <T> T loadSingleService(Class<T> serviceInterface) {
         Iterator<T> iterator = ServiceLoader.load(serviceInterface).iterator();

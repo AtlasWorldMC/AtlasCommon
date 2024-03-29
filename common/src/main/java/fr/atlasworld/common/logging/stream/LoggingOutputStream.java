@@ -27,6 +27,7 @@ public class LoggingOutputStream extends OutputStream {
      * The internal buffer where data is stored.
      */
     protected byte[] buf;
+
     /**
      * The number of valid bytes in the buffer. This value is always in the
      * range <code>0</code> through <code>buf.length</code>; elements
@@ -34,6 +35,7 @@ public class LoggingOutputStream extends OutputStream {
      * data.
      */
     protected int count;
+
     /**
      * Remembers the size of the buffer for speed.
      */

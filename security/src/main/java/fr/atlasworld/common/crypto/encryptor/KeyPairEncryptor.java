@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import fr.atlasworld.common.crypto.Encryptor;
 import fr.atlasworld.common.exception.crypto.CryptographyException;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -11,11 +12,34 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.*;
 
+/**
+ * Key-Pair encryptor, Encryptor for handling Asymmetric Keys for encryption/decryption.
+ */
 public class KeyPairEncryptor implements Encryptor {
     private Cipher encryptCipher;
     private Cipher decryptCipher;
 
-    public KeyPairEncryptor(PublicKey publicKey, PrivateKey privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    /**
+     * Create a new KeyPair encryptor
+     *
+     * @param publicKey nullable, public key.
+     * @param privateKey nullable, private key.
+     *
+     * @throws IllegalArgumentException if the both keys are null.
+     * @throws NoSuchAlgorithmException if {@code transformation}
+     *         is {@code null}, empty, in an invalid format,
+     *         or if no {@code Provider} supports a {@code CipherSpi}
+     *         implementation for the specified algorithm.
+     * @throws NoSuchPaddingException if {@code transformation}
+     *         contains a padding scheme that is not available.
+     * @exception InvalidKeyException if the given key is inappropriate for
+     *         initializing this cipher, or requires
+     *         algorithm parameters that cannot be
+     *         determined from the given key, or if the given key has a keysize that
+     *         exceeds the maximum allowable keysize (as determined from the
+     *         configured jurisdiction policy files).
+     */
+    public KeyPairEncryptor(@Nullable PublicKey publicKey, @Nullable PrivateKey privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         Preconditions.checkArgument(!(publicKey == null && privateKey == null), "At least one key must not be null!");
 
         if (publicKey != null) {
@@ -29,7 +53,27 @@ public class KeyPairEncryptor implements Encryptor {
         }
     }
 
-    public KeyPairEncryptor(KeyPair keys) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    /**
+     * Create a new KeyPair encryptor
+     *
+     * @param keys keypair for encryption.
+     *
+     * @throws NullPointerException if the keypair is null.
+     * @throws IllegalArgumentException if the both keys are null.
+     * @throws NoSuchAlgorithmException if {@code transformation}
+     *         is {@code null}, empty, in an invalid format,
+     *         or if no {@code Provider} supports a {@code CipherSpi}
+     *         implementation for the specified algorithm.
+     * @throws NoSuchPaddingException if {@code transformation}
+     *         contains a padding scheme that is not available.
+     * @exception InvalidKeyException if the given key is inappropriate for
+     *         initializing this cipher, or requires
+     *         algorithm parameters that cannot be
+     *         determined from the given key, or if the given key has a keysize that
+     *         exceeds the maximum allowable keysize (as determined from the
+     *         configured jurisdiction policy files).
+     */
+    public KeyPairEncryptor(@NotNull KeyPair keys) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         this(keys.getPublic(), keys.getPrivate());
     }
 

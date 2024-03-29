@@ -111,6 +111,11 @@ public abstract class FileReader<V> {
         return fileBytes.hash(func).toString();
     }
 
+    /**
+     * Retrieve the file this reader is handling.
+     *
+     * @return file this reader is handling.
+     */
     public final File getFile() {
         return this.file;
     }
