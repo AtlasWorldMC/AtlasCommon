@@ -38,21 +38,27 @@ subprojects {
 
     publishing {
         repositories {
+            boolean isSnapshot = System.getenv("SNAPSHOT") == 'true';
+
             maven {
-                name 'AtlasWorld-Snapshots'
+                name 'AtlasWorld-Repo'
 
                 def release = "https://repository.atlasworld.fr/repository/maven-release/"
                 def snapshot = "https://repository.atlasworld.fr/repository/maven-snapshot/"
+                url = isSnapshot ? snapshot : release
 
-                url = System.getenv("SNAPSHOT") ? snapshot : release
                 credentials {
                     username = System.getenv("MAVEN_USERNAME")
                     password = System.getenv("MAVEN_PASSWORD")
                 }
+
+                metadataSources {
+                    gradleMetadata()
+                }
             }
         }
         publications {
-            jar(MavenPublication) {
+            AtlasCommon(MavenPublication) {
                 from components.java
 
                 version = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
