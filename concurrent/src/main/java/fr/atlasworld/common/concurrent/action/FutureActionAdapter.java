@@ -1,8 +1,8 @@
 package fr.atlasworld.common.concurrent.action;
 
+import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
-import fr.atlasworld.common.concurrent.Timing;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,7 +20,7 @@ public abstract class FutureActionAdapter<V, C extends FutureActionAdapter<V, C>
     protected final List<Consumer<V>> onSuccess;
     protected final List<Consumer<Throwable>> onFailure;
     protected final List<BiConsumer<V, Throwable>> whenDone;
-    protected final Timing timing;
+    protected final Stopwatch stopwatch;
 
     protected boolean done = false;
     protected boolean success = false;
@@ -32,7 +32,7 @@ public abstract class FutureActionAdapter<V, C extends FutureActionAdapter<V, C>
         this.onSuccess = new ArrayList<>();
         this.onFailure = new ArrayList<>();
         this.whenDone = new ArrayList<>();
-        this.timing = new Timing();
+        this.stopwatch = Stopwatch.createStarted();
     }
 
     @Override
@@ -113,7 +113,7 @@ public abstract class FutureActionAdapter<V, C extends FutureActionAdapter<V, C>
 
     @Override
     public long getRunningTime() {
-        return this.timing.getRunningTime();
+        return this.stopwatch.elapsed(TimeUnit.MILLISECONDS);
     }
 
     @Override
