@@ -62,6 +62,7 @@ public abstract class FutureActionAdapter<V, C extends FutureActionAdapter<V, C>
     }
 
     @Override
+    @CanIgnoreReturnValue
     public C whenDone(BiConsumer<V, Throwable> listener) {
         if (this.isDone()) {
             listener.accept(this.value, this.cause);

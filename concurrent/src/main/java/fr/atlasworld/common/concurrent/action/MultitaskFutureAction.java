@@ -5,6 +5,7 @@ import com.google.common.util.concurrent.UncheckedExecutionException;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import fr.atlasworld.common.concurrent.Timing;
 import fr.atlasworld.common.exception.GroupedException;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +19,10 @@ import java.util.function.Consumer;
  * The Multitask Future Action can wait on multiple tasks to finish before firing the complete listener.
  *
  * @param <V>
+ * @deprecated Use {@link CompositeFutureAction}.
  */
+@Deprecated
+@ApiStatus.ScheduledForRemoval(inVersion = "1.0.0")
 public class MultitaskFutureAction<V> implements FutureAction<V> {
     private final CountDownLatch latch;
 

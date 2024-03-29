@@ -114,6 +114,6 @@ public interface FutureAction<V> extends Future<V> {
      * @return the running time converted to the specified TimeUnit.
      */
     default long getRunningTime(TimeUnit unit) {
-        return unit.convert(this.getRunningTime(), TimeUnit.NANOSECONDS);
+        return unit.convert(this.getRunningTime(), TimeUnit.MILLISECONDS);
     }
 }

@@ -5,7 +5,10 @@ import java.util.List;
 
 /**
  * Contains a group of exceptions
+ *
+ * @deprecated Attached to the {@link fr.atlasworld.common.concurrent.action.MultitaskFutureAction}
  */
+@Deprecated
 public class GroupedException extends Exception {
     private final List<Throwable> causes;
 
