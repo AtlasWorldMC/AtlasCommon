@@ -49,7 +49,7 @@ subprojects {
 
                 credentials {
                     username = System.getenv("AW_REPO_USERNAME")
-                    username = System.getenv("AW_REPO_PASSWORD")
+                    password = System.getenv("AW_REPO_PASSWORD")
                 }
 
                 metadataSources {
