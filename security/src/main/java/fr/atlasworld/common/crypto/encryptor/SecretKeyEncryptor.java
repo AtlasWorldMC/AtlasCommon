@@ -54,7 +54,7 @@ public class SecretKeyEncryptor implements Encryptor {
 
     @Override
     public byte[] decrypt(byte[] bytes) throws IllegalBlockSizeException, BadPaddingException {
-        return this.encryptCipher.doFinal(bytes);
+        return this.decryptCipher.doFinal(bytes);
     }
 
     @Override
