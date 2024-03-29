@@ -66,7 +66,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         this.cancelled = this.onCancellation.apply(mayInterruptIfRunning);
 
         if (this.cancelled) {
-            this.timing.stop();
+            this.stopwatch.stop();
             this.latch.countDown();
         }
 
@@ -88,7 +88,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         if (this.isDone())
             throw new IllegalStateException("Action already completed!");
 
-        this.timing.stop();
+        this.stopwatch.stop();
         this.value = value;
         this.done = true;
         this.success = true;
@@ -116,7 +116,7 @@ public class SimpleFutureAction<V> extends FutureActionAdapter<V, SimpleFutureAc
         if (this.isDone())
             throw new IllegalStateException("Action already completed!");
 
-        this.timing.stop();
+        this.stopwatch.stop();
         this.cause = cause;
         this.done = true;
 
