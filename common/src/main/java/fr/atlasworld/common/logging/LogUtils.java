@@ -2,6 +2,7 @@ package fr.atlasworld.common.logging;
 
 import fr.atlasworld.common.logging.stream.LoggingOutputStream;
 import fr.atlasworld.common.reflection.ReflectionFactory;
+import org.jetbrains.annotations.ApiStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,11 @@ import java.io.PrintStream;
 public final class LogUtils {
     private static final Logger LOGGER = getLoggerFullName();
 
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.0.0")
     private static final Logger SYS_ERR_LOGGER = LoggerFactory.getLogger("SYSERR");
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.0.0")
     private static final Logger SYS_OUT_LOGGER = LoggerFactory.getLogger("SYSOUT");
 
     public static Logger getLogger() {
@@ -66,6 +71,11 @@ public final class LogUtils {
         LOGGER.debug("Changed '{}' logging level to {}", logger, level);
     }
 
+    /**
+     * @deprecated Logging Output streams should be set by the user directly.
+     */
+    @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.0.0")
     public static void updateOutStreams() {
         System.setOut(new PrintStream(new LoggingOutputStream(SYS_OUT_LOGGER, Level.INFO), true));
         System.setErr(new PrintStream(new LoggingOutputStream(SYS_ERR_LOGGER, Level.ERROR), true));
