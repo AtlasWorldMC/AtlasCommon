@@ -37,9 +37,9 @@ subprojects {
     apply plugin: 'maven-publish'
 
     publishing {
-        repositories {
-            boolean isSnapshot = System.getenv("SNAPSHOT") == 'true';
+        boolean isSnapshot = System.getenv("SNAPSHOT") == 'true';
 
+        repositories {
             maven {
                 name 'AtlasWorld-Repo'
 
@@ -61,7 +61,9 @@ subprojects {
             AtlasCommon(MavenPublication) {
                 from components.java
 
-                version = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
+                def snapshot = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
+
+                version = isSnapshot ? snapshot : grgit.tag.list().get(0).getName();
 
                 pom {
                     name = 'AtlasCommon'
