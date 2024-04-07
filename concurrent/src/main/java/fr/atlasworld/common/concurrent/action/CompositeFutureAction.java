@@ -107,7 +107,7 @@ public final class CompositeFutureAction implements FutureAction<Void> {
     @CanIgnoreReturnValue
     public CompositeFutureAction whenDone(BiConsumer<Void, Throwable> listener) {
         if (this.isDone()) {
-            listener.accept(null, new Exception("One or more futures failed execution."));
+            listener.accept(null, this.cause);
             return this;
         }
 
