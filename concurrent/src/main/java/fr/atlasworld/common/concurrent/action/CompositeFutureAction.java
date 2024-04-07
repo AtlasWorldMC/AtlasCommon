@@ -1,5 +1,6 @@
 package fr.atlasworld.common.concurrent.action;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
 import com.google.common.util.concurrent.UncheckedExecutionException;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -37,6 +38,8 @@ public final class CompositeFutureAction implements FutureAction<Void> {
     private Throwable cause;
 
     private CompositeFutureAction(List<FutureAction<?>> composedFutures) {
+        Preconditions.checkArgument(!composedFutures.isEmpty(), "CompositeFutures may not be empty!");
+
         this.composedFutures = composedFutures;
         this.stopwatch = Stopwatch.createStarted();
 
@@ -45,16 +48,8 @@ public final class CompositeFutureAction implements FutureAction<Void> {
         this.onSuccess = new ArrayList<>();
         this.onFailure = new ArrayList<>();
         this.whenDone = new ArrayList<>();
-    }
 
-    public CompositeFutureAction() {
-        this(new ArrayList<>());
-    }
-
-    public CompositeFutureAction(FutureAction<?>... actions) {
-        this(new ArrayList<>());
-
-        this.composedFutures.addAll(List.of(actions));
+        this.initialize();
     }
 
     private void initialize() {
@@ -62,10 +57,12 @@ public final class CompositeFutureAction implements FutureAction<Void> {
                 future.whenDone((unused, cause) -> {
                     this.futureDoneCount++;
 
-                    if (cause != null && this.cause != null)
+                    if (cause != null && this.cause == null)
                         this.cause = new Exception("One or more of the futures failed execution.", cause);
 
                     if (this.isDone()) {
+                        this.latch.countDown();
+
                         if (this.success())
                             this.onSuccess.forEach(listener -> listener.accept(null));
                         else
@@ -142,11 +139,12 @@ public final class CompositeFutureAction implements FutureAction<Void> {
             if (future.isCancelled())
                 continue;
 
-            if (!future.cancel(mayInterruptIfRunning))
-                this.cancelled = false;
+            future.cancel(mayInterruptIfRunning);
         }
 
-        return this.cancelled;
+        this.cancelled = true;
+
+        return true;
     }
 
     @Override
@@ -156,7 +154,7 @@ public final class CompositeFutureAction implements FutureAction<Void> {
 
     @Override
     public boolean isDone() {
-        return this.futureDoneCount >= this.composedFutures.size();
+        return this.futureDoneCount == this.composedFutures.size();
     }
 
     @Override
@@ -176,7 +174,7 @@ public final class CompositeFutureAction implements FutureAction<Void> {
      */
     @Override
     public boolean success() {
-        return this.isDone() && this.cause != null && !this.cancelled;
+        return this.isDone() && this.cause == null;
     }
 
     @Override
@@ -217,5 +215,47 @@ public final class CompositeFutureAction implements FutureAction<Void> {
     @Override
     public long getRunningTime() {
         return this.stopwatch.elapsed(TimeUnit.MILLISECONDS);
+    }
+
+    public static CompositeBuilder of(FutureAction<?>... futures) {
+        CompositeBuilder compositeBuilder = new CompositeBuilder();
+        compositeBuilder.add(futures);
+
+        return compositeBuilder;
+    }
+
+    public static CompositeBuilder of(List<FutureAction<?>> futures) {
+        CompositeBuilder compositeBuilder = new CompositeBuilder();
+        compositeBuilder.add(futures);
+
+        return compositeBuilder;
+    }
+
+    public static CompositeBuilder builder() {
+        return new CompositeBuilder();
+    }
+
+    public static class CompositeBuilder {
+        private final List<FutureAction<?>> futures;
+
+        private CompositeBuilder() {
+            this.futures = new ArrayList<>();
+        }
+
+        public CompositeBuilder add(FutureAction<?>... futures) {
+            this.futures.addAll(List.of(futures));
+
+            return this;
+        }
+
+        public CompositeBuilder add(List<FutureAction<?>> futures) {
+            this.futures.addAll(futures);
+
+            return this;
+        }
+
+        public CompositeFutureAction build() {
+            return new CompositeFutureAction(this.futures);
+        }
     }
 }
