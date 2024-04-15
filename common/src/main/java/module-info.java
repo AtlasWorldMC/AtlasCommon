@@ -10,6 +10,8 @@ module fr.atlasworld.common {
     requires org.apache.logging.log4j.core;
 
     exports fr.atlasworld.common.annotation;
+    exports fr.atlasworld.common.compound;
+    exports fr.atlasworld.common.compound.json;
     exports fr.atlasworld.common.exception;
     exports fr.atlasworld.common.file.reader;
     exports fr.atlasworld.common.logging;
