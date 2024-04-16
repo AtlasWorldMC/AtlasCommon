@@ -37,7 +37,7 @@ subprojects {
     apply plugin: 'maven-publish'
 
     publishing {
-        boolean isSnapshot = System.getenv("SNAPSHOT") == 'true';
+        boolean isSnapshot = System.getenv("RELEASE") != 'true';
 
         repositories {
             maven {
@@ -63,7 +63,11 @@ subprojects {
 
                 def snapshot = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
 
-                version = isSnapshot ? snapshot : grgit.tag.list().get(0).getName();
+                try {
+                    version = isSnapshot ? snapshot : grgit.tag.list().get(0).getName();
+                } catch (IndexOutOfBoundsException e) {
+                    version = "undefined"
+                }
 
                 pom {
                     name = 'AtlasCommon'
