@@ -26,9 +26,20 @@ public final class LogUtils {
      * <p>
      * This method is called sensitive.
      *
-     * @return returns a logger with the name of the class.
+     * @return returns a logger with the name and full packages of the class.
      */
     public static Logger getLogger() {
+        return LoggerFactory.getLogger(ReflectionFactory.STACK_WALKER.getCallerClass());
+    }
+
+    /**
+     * Retrieve the logger for the caller class with a simple name.
+     * <p>
+     * This method is caller sensitive.
+     *
+     * @return returns a new logger with the simple name of the class.
+     */
+    public static Logger getLoggerSimple() {
         return LoggerFactory.getLogger(ReflectionFactory.STACK_WALKER.getCallerClass().getSimpleName());
     }
 
@@ -38,7 +49,9 @@ public final class LogUtils {
      * This method is called sensitive.
      *
      * @return returns a logger with the name and the package of the class.
+     * @deprecated use {@link #getLogger()}
      */
+    @Deprecated
     public static Logger getLoggerFullName() {
         return LoggerFactory.getLogger(ReflectionFactory.STACK_WALKER.getCallerClass());
     }
