@@ -5,6 +5,7 @@ import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Files;
+import fr.atlasworld.common.file.DataUnit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,6 +110,16 @@ public abstract class FileReader<V> {
     public String checksum(HashFunction func) throws IOException {
         ByteSource fileBytes = Files.asByteSource(this.file);
         return fileBytes.hash(func).toString();
+    }
+
+    /**
+     * Retrieve the size of the file in the specified data unit.
+     *
+     * @param unit data unit in which the file size should be returned.
+     * @return file size in the specified {@link DataUnit}
+     */
+    public long size(DataUnit unit) {
+        return unit.convert(this.file.length(), DataUnit.BYTES);
     }
 
     /**

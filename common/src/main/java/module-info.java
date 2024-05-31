@@ -13,6 +13,7 @@ module fr.atlasworld.common {
     exports fr.atlasworld.common.compound;
     exports fr.atlasworld.common.compound.json;
     exports fr.atlasworld.common.exception;
+    exports fr.atlasworld.common.file;
     exports fr.atlasworld.common.file.reader;
     exports fr.atlasworld.common.logging;
     exports fr.atlasworld.common.logging.stream;
