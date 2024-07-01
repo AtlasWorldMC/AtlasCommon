@@ -52,7 +52,7 @@ public abstract class FileReader<V> {
      * @return the read or default value of the file.
      * @throws IOException if the file could not be created or read.
      */
-    @Nullable
+    @NotNull
     public final V readElseCreate(V defValue) throws IOException {
         if (!this.exists()) {
             this.create();
