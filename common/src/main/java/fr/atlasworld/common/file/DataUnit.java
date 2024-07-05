@@ -31,7 +31,7 @@ public final class DataUnit {
     }
 
     public long convert(long value, DataUnit sourceUnit) {
-        long byteSize = value / sourceUnit.multiplier;
-        return byteSize * this.multiplier;
+        long byteSize = value * sourceUnit.multiplier;
+        return byteSize / this.multiplier;
     }
 }
