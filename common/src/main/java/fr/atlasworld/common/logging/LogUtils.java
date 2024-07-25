@@ -15,10 +15,10 @@ public final class LogUtils {
     private static final Logger LOGGER = getLoggerFullName();
 
     @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     private static final Logger SYS_ERR_LOGGER = LoggerFactory.getLogger("SYSERR");
     @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     private static final Logger SYS_OUT_LOGGER = LoggerFactory.getLogger("SYSOUT");
 
     /**
@@ -52,6 +52,7 @@ public final class LogUtils {
      * @deprecated use {@link #getLogger()}
      */
     @Deprecated
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     public static Logger getLoggerFullName() {
         return LoggerFactory.getLogger(ReflectionFactory.STACK_WALKER.getCallerClass());
     }
@@ -136,7 +137,7 @@ public final class LogUtils {
      * @deprecated Logging Output streams should be set by the user directly.
      */
     @Deprecated
-    @ApiStatus.ScheduledForRemoval(inVersion = "1.1.0")
+    @ApiStatus.ScheduledForRemoval(inVersion = "1.3.0")
     public static void updateOutStreams() {
         System.setOut(new PrintStream(new LoggingOutputStream(SYS_OUT_LOGGER, Level.INFO), true));
         System.setErr(new PrintStream(new LoggingOutputStream(SYS_ERR_LOGGER, Level.ERROR), true));
