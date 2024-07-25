@@ -13,19 +13,18 @@ allprojects {
 
     eclipse {
         classpath {
-            downloadJavadoc = true
             downloadSources = true
         }
     }
 
     idea {
         module {
-            downloadJavadoc = true
             downloadSources = true
         }
     }
 
     repositories {
+        mavenCentral()
         maven {
             url "https://repository.atlasworld.fr/repository/maven-public/"
         }
