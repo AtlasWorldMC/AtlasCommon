@@ -1,7 +1,6 @@
 plugins {
     id 'java'
     id 'org.ajoberstar.grgit' version '5.2.1'
-    id 'signing'
 }
 
 group = "${project_group}"
@@ -13,19 +12,26 @@ allprojects {
 
     eclipse {
         classpath {
-            downloadJavadoc = true
             downloadSources = true
         }
     }
 
     idea {
         module {
-            downloadJavadoc = true
             downloadSources = true
         }
     }
 
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+
+    java {
+        toolchain.languageVersion.set(JavaLanguageVersion.of(project.java_version))
+    }
+
     repositories {
+        mavenCentral()
         maven {
             url "https://repository.atlasworld.fr/repository/maven-public/"
         }
