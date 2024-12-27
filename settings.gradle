@@ -1,5 +1,4 @@
 rootProject.name = 'AtlasCommon'
 include 'common'
 include 'security'
-include 'concurrent'
 
