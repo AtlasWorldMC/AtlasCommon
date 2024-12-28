@@ -67,10 +67,9 @@ subprojects {
             AtlasCommon(MavenPublication) {
                 from components.java
 
-                def snapshot = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
-
+                group = "${project_group}"
                 try {
-                    version = isSnapshot ? snapshot : grgit.tag.list().get(0).getName();
+                    version = isSnapshot ? grgit.head().id.subSequence(0, 5) : grgit.tag.list().get(0).getName();
                 } catch (IndexOutOfBoundsException e) {
                     version = "undefined"
                 }
