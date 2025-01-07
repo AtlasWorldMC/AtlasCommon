@@ -1,5 +1,4 @@
 group = "${project_group}"
-version = "${project_version}"
 
 dependencies {
     api project(":common")

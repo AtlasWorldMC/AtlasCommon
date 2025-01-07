@@ -4,7 +4,6 @@ plugins {
 }
 
 group = "${project_group}"
-version = "${project_version}"
 
 allprojects {
     apply plugin: 'idea'
